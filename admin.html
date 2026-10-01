@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance Admin</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="adminPage">
+
+        <h1>Attendance Admin</h1>
+
+        <!-- COUNTER NAME -->
+        <div class="adminSection">
+
+            <label for="counterName">
+                <strong>Counter Name</strong>
+            </label>
+
+            <br><br>
+
+            <input
+                type="text"
+                id="counterName"
+                value="Counter A"
+            >
+
+        </div>
+
+
+        <!-- TOTAL ATTENDANCE -->
+        <div class="adminSection">
+
+            <div class="boxTitle">
+                TOTAL ATTENDANCE
+            </div>
+
+            <div id="totalAttendance">
+                0
+            </div>
+
+        </div>
+
+
+        <!-- ATTENDANCE RECORDS -->
+        <div class="adminSection">
+
+            <h2>Attendance Records</h2>
+
+            <div id="adminAttendanceRecords">
+                No attendance records
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN BUTTONS -->
+        <div class="adminSection">
+
+            <button id="exportButton">
+                EXPORT ATTENDANCE
+            </button>
+
+            <br><br>
+
+            <button id="clearButton">
+                CLEAR ATTENDANCE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
