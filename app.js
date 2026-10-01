@@ -22,6 +22,23 @@ let scannerRunning = false;
 
 
 // -----------------------------
+// ATTENDANCE STORAGE
+// -----------------------------
+
+let attendanceList =
+    JSON.parse(localStorage.getItem("attendanceList")) || [];
+
+
+// -----------------------------
+// COUNTER NAME
+// Temporary value for testing.
+// We will make this configurable later.
+// -----------------------------
+
+const counterName = "Counter A";
+
+
+// -----------------------------
 // ENTER SCANNER PAGE
 // -----------------------------
 
@@ -29,6 +46,9 @@ enterButton.addEventListener("click", function () {
 
     mainPage.style.display = "none";
     scannerPage.style.display = "block";
+
+    statusDisplay.textContent = "Ready to Scan";
+    geidDisplay.textContent = "--";
 
 });
 
@@ -84,8 +104,14 @@ scanButton.addEventListener("click", async function () {
             // Successful barcode scan
             async function (decodedText) {
 
-                geidDisplay.textContent = decodedText;
-                statusDisplay.textContent = "Barcode Captured";
+                const scannedGEID = decodedText.trim();
+
+                geidDisplay.textContent = scannedGEID;
+
+
+                // -----------------------------
+                // STOP CAMERA
+                // -----------------------------
 
                 if (scannerRunning) {
 
@@ -97,16 +123,64 @@ scanButton.addEventListener("click", async function () {
 
                     scannerRunning = false;
                 }
+
+
+                // -----------------------------
+                // CHECK FOR DUPLICATE
+                // -----------------------------
+
+                const alreadyScanned =
+                    attendanceList.some(function (record) {
+                        return record.geid === scannedGEID;
+                    });
+
+
+                if (alreadyScanned) {
+
+                    statusDisplay.textContent =
+                        "Already Scanned";
+
+                    return;
+                }
+
+
+                // -----------------------------
+                // SAVE ATTENDANCE
+                // -----------------------------
+
+                const now = new Date();
+
+                const attendanceRecord = {
+                    geid: scannedGEID,
+                    checkInTime: now.toISOString(),
+                    counter: counterName
+                };
+
+
+                attendanceList.push(attendanceRecord);
+
+
+                localStorage.setItem(
+                    "attendanceList",
+                    JSON.stringify(attendanceList)
+                );
+
+
+                statusDisplay.textContent =
+                    "Attendance Recorded";
             },
 
-            // Ignore unsuccessful frames
+            // Ignore unsuccessful camera frames
             function () {
                 // Keep scanning
             }
         );
 
+
         scannerRunning = true;
+
         statusDisplay.textContent = "Scanning...";
+
 
     } catch (error) {
 
