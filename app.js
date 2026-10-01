@@ -35,7 +35,7 @@ let attendanceList =
 // We will make this configurable later.
 // -----------------------------
 
-const counterName = "Counter A";
+const counterName = "Staff A";
 
 
 // -----------------------------

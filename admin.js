@@ -11,6 +11,12 @@ const totalAttendance =
 const adminAttendanceRecords =
     document.getElementById("adminAttendanceRecords");
 
+const exportButton =
+    document.getElementById("exportButton");
+
+const clearButton =
+    document.getElementById("clearButton");
+
 
 // -----------------------------
 // LOAD ATTENDANCE
@@ -68,3 +74,94 @@ function displayAttendanceRecords() {
 
 
 displayAttendanceRecords();
+
+
+// -----------------------------
+// EXPORT ATTENDANCE
+// -----------------------------
+
+exportButton.addEventListener("click", function () {
+
+    if (attendanceList.length === 0) {
+
+        alert("There are no attendance records to export.");
+
+        return;
+    }
+
+
+    let csvContent =
+        "GEID,Check-in Date,Check-in Time,Staff\n";
+        
+
+
+    attendanceList.forEach(function (record) {
+
+        const checkInDate =
+            new Date(record.checkInTime);
+
+
+        const date =
+            String(checkInDate.getDate()).padStart(2, "0") + "/" +
+            String(checkInDate.getMonth() + 1).padStart(2, "0") + "/" +
+            checkInDate.getFullYear();
+
+
+        const time =
+            String(checkInDate.getHours()).padStart(2, "0") + ":" +
+            String(checkInDate.getMinutes()).padStart(2, "0") + ":" +
+            String(checkInDate.getSeconds()).padStart(2, "0");
+
+
+        csvContent +=
+            '"' + record.geid + '",' +
+            '"' + date + '",' +
+            '"' + time + '",' +
+            '"' + record.counter + '"' +
+            "\n";
+
+    });
+
+
+    const blob = new Blob(
+        [csvContent],
+        { type: "text/csv;charset=utf-8;" }
+    );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+
+    const now = new Date();
+
+    const fileDate =
+        now.getFullYear() + "-" +
+        String(now.getMonth() + 1).padStart(2, "0") + "-" +
+        String(now.getDate()).padStart(2, "0");
+
+
+    link.download =
+        "Attendance_" +
+        counterNameInput.value.trim().replace(/\s+/g, "_") +
+        "_" +
+        fileDate +
+        ".csv";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+});
