@@ -83,7 +83,7 @@ displayAttendanceRecords();
 exportButton.addEventListener("click", function () {
 
     // Temporary test message
-    alert("Export button is working");
+   
 
 
     if (attendanceList.length === 0) {
