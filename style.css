@@ -133,3 +133,74 @@ body {
 
     cursor: pointer;
 }
+/* -----------------------------
+   ADMIN PAGE
+----------------------------- */
+
+#adminPage {
+    width: 100%;
+    min-height: 100vh;
+
+    text-align: center;
+
+    padding: 40px 20px;
+}
+
+#adminPage h1 {
+    margin-bottom: 35px;
+}
+
+.adminSection {
+    width: 100%;
+    max-width: 360px;
+
+    margin: 0 auto 25px;
+
+    padding: 20px;
+
+    background-color: white;
+
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+}
+
+#counterName {
+    width: 100%;
+    max-width: 250px;
+
+    padding: 12px;
+
+    font-size: 18px;
+    text-align: center;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+}
+
+#totalAttendance {
+    font-size: 32px;
+    font-weight: bold;
+
+    margin-top: 10px;
+}
+
+#adminAttendanceRecords {
+    text-align: center;
+    line-height: 1.6;
+}
+
+#exportButton,
+#clearButton {
+    width: 100%;
+    max-width: 280px;
+
+    padding: 15px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
