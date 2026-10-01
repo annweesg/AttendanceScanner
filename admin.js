@@ -62,7 +62,7 @@ function displayAttendanceRecords() {
             "Check-in: " +
             checkInDate.toLocaleString() +
             "<br>" +
-            "Counter: " +
+            "Staff: " +
             record.counter +
             "<br><br>";
 
@@ -82,6 +82,10 @@ displayAttendanceRecords();
 
 exportButton.addEventListener("click", function () {
 
+    // Temporary test message
+    alert("Export button is working");
+
+
     if (attendanceList.length === 0) {
 
         alert("There are no attendance records to export.");
@@ -92,7 +96,6 @@ exportButton.addEventListener("click", function () {
 
     let csvContent =
         "GEID,Check-in Date,Check-in Time,Staff\n";
-        
 
 
     attendanceList.forEach(function (record) {
