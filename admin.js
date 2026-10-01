@@ -168,3 +168,38 @@ exportButton.addEventListener("click", function () {
     URL.revokeObjectURL(url);
 
 });
+// -----------------------------
+// CLEAR ATTENDANCE
+// -----------------------------
+
+clearButton.addEventListener("click", function () {
+
+    if (attendanceList.length === 0) {
+
+        alert("There are no attendance records to clear.");
+
+        return;
+    }
+
+
+    const confirmed = confirm(
+        "Are you sure you want to clear all attendance records? This cannot be undone."
+    );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    attendanceList = [];
+
+    localStorage.removeItem("attendanceList");
+
+    totalAttendance.textContent = "0";
+
+    displayAttendanceRecords();
+
+    alert("Attendance records have been cleared.");
+
+});
