@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance Scanner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- MAIN PAGE -->
+    <div id="mainPage">
+
+        <button id="enterButton">
+            ENTER
+        </button>
+
+    </div>
+
+
+    <!-- SCANNER PAGE -->
+    <div id="scannerPage" style="display: none;">
+
+        <h1>Attendance Scanner</h1>
+
+        <div class="displayBox">
+            <div class="boxTitle">STATUS</div>
+            <div id="statusDisplay">Ready to Scan</div>
+        </div>
+
+        <div class="displayBox">
+            <div class="boxTitle">GEID</div>
+            <div id="geidDisplay">--</div>
+        </div>
+
+        <div id="reader"></div>
+
+        <button id="scanButton">
+            SCAN BARCODE
+        </button>
+
+        <button id="backButton" aria-label="Back">
+            ←
+        </button>
+
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
