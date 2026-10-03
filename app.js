@@ -12,6 +12,28 @@ const scanButton = document.getElementById("scanButton");
 const statusDisplay = document.getElementById("statusDisplay");
 const geidDisplay = document.getElementById("geidDisplay");
 
+const statusBox = statusDisplay.closest(".displayBox");
+
+
+// -----------------------------
+// STATUS DISPLAY
+// -----------------------------
+
+function setStatus(message, statusClass) {
+
+    statusDisplay.textContent = message;
+
+    statusBox.classList.remove(
+        "status-ready",
+        "status-scanning",
+        "status-recorded",
+        "status-duplicate",
+        "status-error"
+    );
+
+    statusBox.classList.add(statusClass);
+}
+
 
 // -----------------------------
 // BARCODE SCANNER
@@ -20,8 +42,8 @@ const geidDisplay = document.getElementById("geidDisplay");
 let html5QrCode = null;
 let scannerRunning = false;
 
-// The camera can see barcodes continuously,
-// but a barcode is only accepted after
+// Camera stays open continuously.
+// Barcode is only accepted after
 // SCAN BARCODE is pressed.
 let waitingForBarcode = false;
 
@@ -51,7 +73,8 @@ enterButton.addEventListener("click", async function () {
     mainPage.style.display = "none";
     scannerPage.style.display = "block";
 
-    statusDisplay.textContent = "Opening Camera...";
+    setStatus("Opening Camera...", "status-scanning");
+
     geidDisplay.textContent = "--";
 
     await startCamera();
@@ -79,6 +102,7 @@ async function startCamera() {
             { facingMode: "environment" },
             {
                 fps: 10,
+
                 qrbox: {
                     width: 320,
                     height: 180
@@ -107,14 +131,19 @@ async function startCamera() {
 
         scannerRunning = true;
 
-        statusDisplay.textContent = "Ready to Scan";
+        setStatus(
+            "Ready to Scan",
+            "status-ready"
+        );
 
     } catch (error) {
 
         console.log(error);
 
-        statusDisplay.textContent =
-            "Unable to open camera";
+        setStatus(
+            "Unable to open camera",
+            "status-error"
+        );
 
         scannerRunning = false;
     }
@@ -130,16 +159,20 @@ scanButton.addEventListener("click", function () {
 
     if (!scannerRunning) {
 
-        statusDisplay.textContent =
-            "Camera is not ready";
+        setStatus(
+            "Camera is not ready",
+            "status-error"
+        );
 
         return;
     }
 
     geidDisplay.textContent = "--";
 
-    statusDisplay.textContent =
-        "Scanning...";
+    setStatus(
+        "Scanning...",
+        "status-scanning"
+    );
 
     waitingForBarcode = true;
 
@@ -169,8 +202,10 @@ function processBarcode(decodedText) {
 
     if (alreadyScanned) {
 
-        statusDisplay.textContent =
-            "Already Scanned";
+        setStatus(
+            "Already Scanned",
+            "status-duplicate"
+        );
 
         return;
     }
@@ -198,8 +233,10 @@ function processBarcode(decodedText) {
     );
 
 
-    statusDisplay.textContent =
-        "Attendance Recorded";
+    setStatus(
+        "Attendance Recorded",
+        "status-recorded"
+    );
 
 }
 

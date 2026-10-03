@@ -21,7 +21,7 @@ body {
     justify-content: center;
     align-items: flex-end;
 
-    padding: 80px 25px;
+    padding: 100px 25px;
 }
 
 #enterButton {
@@ -88,6 +88,8 @@ body {
 #statusDisplay,
 #geidDisplay {
     font-size: 20px;
+    font-weight: normal;
+    line-height: 1.2;
 }
 
 
@@ -101,7 +103,7 @@ body {
 
     margin-top: 30px;
 
-    padding: 35px;
+    padding: 40px;
 
     font-size: 20px;
     font-weight: bold;
@@ -227,4 +229,27 @@ body {
     height: 200px !important;
 
     object-fit: cover;
+}
+/* -----------------------------
+   STATUS COLOURS
+----------------------------- */
+
+.status-ready {
+    background-color: white;
+}
+
+.status-scanning {
+    background-color: #fff3cd;
+}
+
+.status-recorded {
+    background-color: #d4edda;
+}
+
+.status-duplicate {
+    background-color: #d6e9ff;
+}
+
+.status-error {
+    background-color: #f8d7da;
 }
