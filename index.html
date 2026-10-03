@@ -7,7 +7,7 @@
 
     <title>Attendance Scanner</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <body>
@@ -27,30 +27,36 @@
 
         <h1>Attendance Scanner</h1>
 
+        <!-- CAMERA -->
+        <div id="reader"></div>
+
+        <!-- STATUS -->
         <div class="displayBox">
             <div class="boxTitle">STATUS</div>
             <div id="statusDisplay">Ready to Scan</div>
         </div>
 
+        <!-- GEID -->
         <div class="displayBox">
             <div class="boxTitle">GEID</div>
             <div id="geidDisplay">--</div>
         </div>
 
-        <div id="reader"></div>
-
+        <!-- SCAN BUTTON -->
         <button id="scanButton">
             SCAN BARCODE
         </button>
 
+        <!-- BACK BUTTON -->
         <button id="backButton" aria-label="Back">
             ←
         </button>
 
     </div>
 
+
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
 
 </body>
 

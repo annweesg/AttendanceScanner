@@ -20,6 +20,11 @@ const geidDisplay = document.getElementById("geidDisplay");
 let html5QrCode = null;
 let scannerRunning = false;
 
+// The camera can see barcodes continuously,
+// but a barcode is only accepted after
+// SCAN BARCODE is pressed.
+let waitingForBarcode = false;
+
 
 // -----------------------------
 // ATTENDANCE STORAGE
@@ -30,9 +35,8 @@ let attendanceList =
 
 
 // -----------------------------
-// COUNTER NAME
+// STAFF NAME
 // Temporary value for testing.
-// We will make this configurable later.
 // -----------------------------
 
 const counterName = "Staff A";
@@ -42,15 +46,162 @@ const counterName = "Staff A";
 // ENTER SCANNER PAGE
 // -----------------------------
 
-enterButton.addEventListener("click", function () {
+enterButton.addEventListener("click", async function () {
 
     mainPage.style.display = "none";
     scannerPage.style.display = "block";
 
-    statusDisplay.textContent = "Ready to Scan";
+    statusDisplay.textContent = "Opening Camera...";
     geidDisplay.textContent = "--";
 
+    await startCamera();
+
 });
+
+
+// -----------------------------
+// START CAMERA
+// -----------------------------
+
+async function startCamera() {
+
+    if (scannerRunning) {
+        return;
+    }
+
+    try {
+
+        if (!html5QrCode) {
+            html5QrCode = new Html5Qrcode("reader");
+        }
+
+        await html5QrCode.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: {
+                    width: 280,
+                    height: 100
+                }
+            },
+
+            // Barcode detected by camera
+            function (decodedText) {
+
+                // Ignore barcode until operator
+                // presses SCAN BARCODE.
+                if (!waitingForBarcode) {
+                    return;
+                }
+
+                waitingForBarcode = false;
+
+                processBarcode(decodedText);
+            },
+
+            // Ignore unsuccessful camera frames
+            function () {
+                // Keep camera running
+            }
+        );
+
+        scannerRunning = true;
+
+        statusDisplay.textContent = "Ready to Scan";
+
+    } catch (error) {
+
+        console.log(error);
+
+        statusDisplay.textContent =
+            "Unable to open camera";
+
+        scannerRunning = false;
+    }
+
+}
+
+
+// -----------------------------
+// SCAN BUTTON
+// -----------------------------
+
+scanButton.addEventListener("click", function () {
+
+    if (!scannerRunning) {
+
+        statusDisplay.textContent =
+            "Camera is not ready";
+
+        return;
+    }
+
+    geidDisplay.textContent = "--";
+
+    statusDisplay.textContent =
+        "Scanning...";
+
+    waitingForBarcode = true;
+
+});
+
+
+// -----------------------------
+// PROCESS BARCODE
+// -----------------------------
+
+function processBarcode(decodedText) {
+
+    const scannedGEID = decodedText.trim();
+
+    geidDisplay.textContent = scannedGEID;
+
+
+    // -----------------------------
+    // CHECK FOR DUPLICATE
+    // -----------------------------
+
+    const alreadyScanned =
+        attendanceList.some(function (record) {
+            return record.geid === scannedGEID;
+        });
+
+
+    if (alreadyScanned) {
+
+        statusDisplay.textContent =
+            "Already Scanned";
+
+        return;
+    }
+
+
+    // -----------------------------
+    // SAVE ATTENDANCE
+    // -----------------------------
+
+    const now = new Date();
+
+    const attendanceRecord = {
+        geid: scannedGEID,
+        checkInTime: now.toISOString(),
+        counter: counterName
+    };
+
+
+    attendanceList.push(attendanceRecord);
+
+
+    localStorage.setItem(
+        "attendanceList",
+        JSON.stringify(attendanceList)
+    );
+
+
+    statusDisplay.textContent =
+        "Attendance Recorded";
+
+}
 
 
 // -----------------------------
@@ -58,6 +209,8 @@ enterButton.addEventListener("click", function () {
 // -----------------------------
 
 backButton.addEventListener("click", async function () {
+
+    waitingForBarcode = false;
 
     if (scannerRunning && html5QrCode) {
 
@@ -72,124 +225,5 @@ backButton.addEventListener("click", async function () {
 
     scannerPage.style.display = "none";
     mainPage.style.display = "flex";
-
-});
-
-
-// -----------------------------
-// START BARCODE SCANNER
-// -----------------------------
-
-scanButton.addEventListener("click", async function () {
-
-    statusDisplay.textContent = "Opening Camera...";
-    geidDisplay.textContent = "--";
-
-    try {
-
-        if (!html5QrCode) {
-            html5QrCode = new Html5Qrcode("reader");
-        }
-
-        await html5QrCode.start(
-            { facingMode: "environment" },
-            {
-                fps: 10,
-                qrbox: {
-                    width: 280,
-                    height: 120
-                }
-            },
-
-            // Successful barcode scan
-            async function (decodedText) {
-
-                const scannedGEID = decodedText.trim();
-
-                geidDisplay.textContent = scannedGEID;
-
-
-                // -----------------------------
-                // STOP CAMERA
-                // -----------------------------
-
-                if (scannerRunning) {
-
-                    try {
-                        await html5QrCode.stop();
-                    } catch (error) {
-                        console.log(error);
-                    }
-
-                    scannerRunning = false;
-                }
-
-
-                // -----------------------------
-                // CHECK FOR DUPLICATE
-                // -----------------------------
-
-                const alreadyScanned =
-                    attendanceList.some(function (record) {
-                        return record.geid === scannedGEID;
-                    });
-
-
-                if (alreadyScanned) {
-
-                    statusDisplay.textContent =
-                        "Already Scanned";
-
-                    return;
-                }
-
-
-                // -----------------------------
-                // SAVE ATTENDANCE
-                // -----------------------------
-
-                const now = new Date();
-
-                const attendanceRecord = {
-                    geid: scannedGEID,
-                    checkInTime: now.toISOString(),
-                    counter: counterName
-                };
-
-
-                attendanceList.push(attendanceRecord);
-
-
-                localStorage.setItem(
-                    "attendanceList",
-                    JSON.stringify(attendanceList)
-                );
-
-
-                statusDisplay.textContent =
-                    "Attendance Recorded";
-            },
-
-            // Ignore unsuccessful camera frames
-            function () {
-                // Keep scanning
-            }
-        );
-
-
-        scannerRunning = true;
-
-        statusDisplay.textContent = "Scanning...";
-
-
-    } catch (error) {
-
-        console.log(error);
-
-        statusDisplay.textContent =
-            "Unable to open camera";
-
-        scannerRunning = false;
-    }
 
 });

@@ -204,3 +204,27 @@ body {
 
     cursor: pointer;
 }
+/* -----------------------------
+   CAMERA WINDOW
+----------------------------- */
+
+#reader {
+    width: 100%;
+    max-width: 360px;
+    height: 200px;
+
+    margin: 0 auto 20px;
+
+    overflow: hidden;
+
+    background-color: #000000;
+
+    border-radius: 10px;
+}
+
+#reader video {
+    width: 100% !important;
+    height: 200px !important;
+
+    object-fit: cover;
+}
