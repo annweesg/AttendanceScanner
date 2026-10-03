@@ -80,8 +80,8 @@ async function startCamera() {
             {
                 fps: 10,
                 qrbox: {
-                    width: 280,
-                    height: 100
+                    width: 320,
+                    height: 180
                 }
             },
 
