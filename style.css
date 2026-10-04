@@ -461,3 +461,14 @@ body {
     }
 
 }
+/* -----------------------------
+   BACK BUTTON
+----------------------------- */
+
+#backButton {
+    background-color: transparent;
+
+    border: 2px solid white;
+
+    color: white;
+}
