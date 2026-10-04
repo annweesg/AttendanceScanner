@@ -24,7 +24,7 @@ body {
     padding: 120px 25px;
 
     background-image: url("main-background-v2.png");
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;    
 }
@@ -47,7 +47,7 @@ body {
 
     color: white;
 
-    font-size: 40px;
+    font-size: 34px;
     font-weight: bold;
 
     white-space: nowrap;
@@ -91,7 +91,7 @@ body {
 .eventTitle {
     margin-top: 28px;
 
-    font-size: 34px;
+    font-size: 38px;
     font-weight: bold;
     line-height: 1.15;
 }
