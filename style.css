@@ -38,7 +38,6 @@ body {
 
 .mainTitle {
     position: absolute;
-
     top: 55%;
     left: 50%;
 
@@ -52,6 +51,49 @@ body {
     font-weight: bold;
 
     white-space: nowrap;
+}
+
+/* -----------------------------
+   EVENT HEADER
+----------------------------- */
+
+.eventHeader {
+    position: absolute;
+    top: 13%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+    text-align: center;
+
+    color: white;
+}
+
+.eventLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.eventLabel span {
+    width: 50px;
+    height: 1px;
+
+    background-color: white;
+}
+
+.eventTitle {
+    margin-top: 28px;
+
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 1.15;
 }
 
 
