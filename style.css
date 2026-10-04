@@ -125,7 +125,12 @@ body {
 
     text-align: center;
 
-    padding: 40px 25px 100px;
+    padding: 30px 25px 100px;
+
+    background-image: url("main-background-v2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #scannerPage h1 {
