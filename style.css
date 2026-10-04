@@ -21,8 +21,30 @@ body {
     justify-content: center;
     align-items: flex-end;
 
-    padding: 100px 25px;
+    padding: 120px 25px;
+
+    background-image: url("main-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;    
 }
+
+.mainContent {
+    width: 100%;
+    max-width: 320px;
+
+    text-align: center;
+}
+
+.mainTitle {
+    margin: 0 0 20px;
+
+    color: white;
+
+    font-size: 46px;
+    font-weight: bold;
+}
+
 
 #enterButton {
     width: 100%;
