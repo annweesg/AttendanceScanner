@@ -24,7 +24,7 @@ body {
     padding: 120px 25px;
 
     background-image: url("main-background.png");
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;    
 }
@@ -37,12 +37,21 @@ body {
 }
 
 .mainTitle {
-    margin: 0 0 20px;
+    position: absolute;
+
+    top: 55%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    margin: 0;
 
     color: white;
 
-    font-size: 46px;
+    font-size: 40px;
     font-weight: bold;
+
+    white-space: nowrap;
 }
 
 
