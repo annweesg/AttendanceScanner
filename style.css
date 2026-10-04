@@ -332,3 +332,132 @@ body {
 .status-error {
     background-color: #f8d7da;
 }
+/* =====================================================
+   FINAL MAIN + SCANNER VISUAL SETTINGS
+===================================================== */
+
+
+/* ENTER BUTTON */
+#enterButton {
+    font-size: 30px;
+
+    background-color: transparent;
+    border: none;
+
+    color: white;
+}
+
+
+/* STATUS + GEID BOXES */
+.displayBox {
+    background-color: transparent;
+    border: none;
+
+    color: white;
+}
+
+
+/* STATUS + GEID HEADINGS */
+.boxTitle {
+    font-size: 17px;
+    color: white;
+}
+
+
+/* STATUS MESSAGE */
+#statusDisplay {
+    font-size: 22px;
+    color: white;
+}
+
+
+/* GEID VALUE */
+#geidDisplay {
+    font-size: 22px;
+    color: white;
+}
+
+
+/* SCAN BARCODE BUTTON */
+#scanButton {
+    font-size: 25px;
+
+    background-color: transparent;
+
+    border: 2px solid white;
+
+    color: white;
+}
+
+
+/* -----------------------------
+   STATUS TEXT COLOURS
+----------------------------- */
+
+/* READY */
+.status-ready {
+    background-color: transparent;
+}
+
+.status-ready #statusDisplay {
+    color: white;
+}
+
+
+/* SCANNING */
+.status-scanning {
+    background-color: transparent;
+}
+
+.status-scanning #statusDisplay {
+    color: #ffd966;
+
+    animation: scanningBlink 1s infinite;
+}
+
+
+/* ATTENDANCE RECORDED */
+.status-recorded {
+    background-color: transparent;
+}
+
+.status-recorded #statusDisplay {
+    color: #7CFF8A;
+}
+
+
+/* ALREADY SCANNED */
+.status-duplicate {
+    background-color: transparent;
+}
+
+.status-duplicate #statusDisplay {
+    color: #6EC6FF;
+}
+
+
+/* ERROR */
+.status-error {
+    background-color: transparent;
+}
+
+.status-error #statusDisplay {
+    color: #FF7B7B;
+}
+
+
+/* -----------------------------
+   SCANNING BLINK
+----------------------------- */
+
+@keyframes scanningBlink {
+
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+
+}
