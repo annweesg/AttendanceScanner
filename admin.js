@@ -5,6 +5,23 @@
 const counterNameInput =
     document.getElementById("counterName");
 
+// -----------------------------
+// SAVE STAFF NAME ON THIS PHONE
+// -----------------------------
+
+counterNameInput.value =
+    localStorage.getItem("staffName") || "Staff A";
+
+counterNameInput.addEventListener("change", function () {
+
+    const staffName = counterNameInput.value.trim();
+
+    if (staffName !== "") {
+        localStorage.setItem("staffName", staffName);
+    }
+
+});
+
 const totalAttendance =
     document.getElementById("totalAttendance");
 

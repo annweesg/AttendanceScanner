@@ -61,7 +61,8 @@ let attendanceList =
 // Temporary value for testing.
 // -----------------------------
 
-const counterName = "Staff A";
+const counterName =
+    localStorage.getItem("staffName") || "Staff A";
 
 
 // -----------------------------
