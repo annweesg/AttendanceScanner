@@ -67,7 +67,7 @@ function displayAttendanceRecords() {
     }
 
 
-    attendanceList.forEach(function (record) {
+    attendanceList.slice(-1).forEach(function (record) {
 
         const recordBox = document.createElement("div");
 
